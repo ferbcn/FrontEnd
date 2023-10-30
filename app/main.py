@@ -18,6 +18,40 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
+@app.get("/", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/fire", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("fire.html", {"request": request})
+
+
+@app.get("/tail", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("tail.html", {"request": request})
+
+
+# Websocket endpoint
+@app.websocket("/websocket")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        # await for messages and send messages
+        while True:
+            last_data = await websocket.receive_text()
+
+            print(last_data)
+
+            mes_object = {"type": "system", "content": "hello"}
+
+            await websocket.send_text(json.dumps(mes_object))
+
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+
+
 class ConnectionManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []
@@ -42,31 +76,5 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
-@app.get("/", response_class=HTMLResponse)
-def index(request: Request):
-    current_level = 0
-    return templates.TemplateResponse("index.html", {"request": request})
-
-
-# Websocket endpoint
-@app.websocket("/websocket")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    try:
-        # await for messages and send messages
-        while True:
-            last_data = await websocket.receive_text()
-
-            print(last_data)
-
-            mes_object = {"type": "system", "content": "hello"}
-
-            await websocket.send_text(json.dumps(mes_object))
-
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
-
-
 if __name__ == "__main__":
-
     uvicorn.run(app, host="127.0.0.1", port=8000)

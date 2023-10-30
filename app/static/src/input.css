@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, html {
+    background-color: darkgrey;
+}
+
+.container{
+    margin: 10px;
+    background-color: white;
+    border-radius:10px;
+}
