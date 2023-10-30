@@ -30,7 +30,18 @@ def index(request: Request):
 
 @app.get("/tail", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("tail.html", {"request": request})
+    projects = [
+                {"title": "Project1", "url": "www.google.com", "category": "Backend",
+                 "users": [{"name":"John", "avatar":"john.jpg"},
+                           {"name":"Alice", "avatar":"alice.jpg"}
+                           ]},
+                {"title": "Project2", "url": "www.google.com", "category": "Front",
+                 "users": [{"name": "Bob", "avatar": "bob.jpg"},
+                           {"name": "Alice", "avatar": "alice.jpg"},
+                           {"name": "Eve", "avatar": "eve.jpg"}
+                           ]}
+                ]
+    return templates.TemplateResponse("tail.html", {"request": request, "projects": projects})
 
 
 # Websocket endpoint
