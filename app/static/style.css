@@ -1,0 +1,105 @@
+:root {
+  --main_color: lightgrey;
+  --bg_color: #212529;
+}
+
+html {
+    font-family: "Arial", monospace;
+    color: var(--main_color);
+}
+
+body {
+    background: url("sea.jpg") center center no-repeat;
+    background-size: cover;
+
+    height: 100vh;
+	margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+
+}
+
+#mainCanvas{
+    background-color: white;
+    opacity: 0.8;
+    margin: 5vw;
+    padding: 5vw;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+
+	transition: opacity 1s ease; /* You can adjust the duration and easing function */
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 200px;
+	height: 100px;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 90px;
+	height: 90px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+
+}
+
+label:active:after {
+	width: 130px;
+}
+
+#button-bar{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+    margin-top: 25px;
+    width: 20vw;
+    height: 10vh;
+    opacity: 0.8;
+}
+
+.base-icon{
+    padding: 20px;
+    font-size: 48px;
+}
+
+.base-icon:hover{
+    color: white;
+}
