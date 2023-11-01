@@ -1,10 +1,9 @@
 :root {
-  --main_color: lightgrey;
+  --main_color: #2f4f4f;
   --bg_color: #212529;
 }
 
 html {
-    font-family: "Arial", monospace;
     color: var(--main_color);
 }
 
@@ -82,13 +81,12 @@ label:active:after {
 	width: 130px;
 }
 
-#button-bar{
+.button-bar{
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
     margin-top: 25px;
-    width: 20vw;
     height: 10vh;
     opacity: 0.8;
 }
@@ -105,14 +103,17 @@ label:active:after {
 .box-title{
     color: #2f4f4f;
     font-size: 2vh;
-    margin: 1vh;
-}
-
-.fa-user {
-    color: #2f4f4f;
+    margin-bottom: 5vh;
 }
 
 .fa-file-circle-plus {
     color: #2f4f4f;
 }
 
+.switch-container{
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

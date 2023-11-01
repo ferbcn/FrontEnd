@@ -1,5 +1,5 @@
 const dropArea = document.getElementById('drop-area');
-var fileInput = document.getElementById('file-input');
+const fileInput = document.getElementById('file-input');
 const fileList = document.getElementById('file-list');
 
 // Prevent the default behavior for the drop area
@@ -11,8 +11,6 @@ dropArea.addEventListener('dragover', (e) => {
 dropArea.addEventListener('dragleave', () => {
     dropArea.classList.remove('active');
 });
-
-var currentFiles = [];
 
 // Handle dropped files
 dropArea.addEventListener('drop', (e) => {

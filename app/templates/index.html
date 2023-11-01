@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='index.css') }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -26,16 +26,21 @@
 
             <input class="form-control form-control-lg" type="text" placeholder="Ask something...">
 
-            <div id="button-bar">
+            <div class="button-bar">
                 <a href="upload"><i class="fa-solid fa-file-circle-plus base-icon"></i></a>
                 <i class="fa-solid fa-user base-icon"></i>
                 <i class="fa-solid fa-dollar-sign base-icon"></i>
                 <i class="fa-solid fa-city base-icon"></i>
-                <i class="fa-solid fa-xmark base-icon"></i>
-
+                <i class="fa-solid fa-lightbulb base-icon"></i>
+                <!--<i class="fa-solid fa-xmark base-icon"></i>-->
             </div>
 
-            <div class="container">
+            <div class="button-bar">
+                <i class="fa-solid fa-xmark base-icon"></i>
+                <i class="fa-solid fa-image base-icon"></i>
+            </div>
+
+            <div class="switch-container">
                 <input type="checkbox" id="switch" checked/>
                 <label for="switch">Toggle</label>
             </div>
