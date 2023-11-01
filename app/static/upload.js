@@ -1,5 +1,5 @@
 const dropArea = document.getElementById('drop-area');
-const fileInput = document.getElementById('file-input');
+var fileInput = document.getElementById('file-input');
 const fileList = document.getElementById('file-list');
 
 // Prevent the default behavior for the drop area
@@ -11,6 +11,8 @@ dropArea.addEventListener('dragover', (e) => {
 dropArea.addEventListener('dragleave', () => {
     dropArea.classList.remove('active');
 });
+
+var currentFiles = [];
 
 // Handle dropped files
 dropArea.addEventListener('drop', (e) => {
@@ -24,6 +26,7 @@ dropArea.addEventListener('drop', (e) => {
     // But no way to concat easier?
 
     // Create a new array to store both the existing and dropped files
+    // console.log(fileInput.files);
     const combinedFiles = Array.from(fileInput.files);
     // Append the dropped files to the combinedFiles array
     for (let i = 0; i < droppedFiles.length; i++) {
@@ -36,16 +39,24 @@ dropArea.addEventListener('drop', (e) => {
     });
     // Set the newFileList as the new files for the file input
     fileInput.files = newFileList.files;
+    currentFiles = fileInput.files;
+    console.log(currentFiles);
 
 });
 
 // Handle file input change
 fileInput.addEventListener('change', (e) => {
     const files = fileInput.files;
+    //console.log(files);
+    // clear file list
+    while (fileList.firstChild) {
+        fileList.removeChild(fileList.firstChild);
+    }
     handleFiles(files);
 });
 
-// Add dropped files to list
+
+// Add dropped or menu selected files to list
 function handleFiles(files) {
     for (const file of files) {
         const listItem = document.createElement('li');
@@ -55,21 +66,22 @@ function handleFiles(files) {
             <span class="file-remove" data-file="${file.name}">&times;</span></div>
         `;
         fileList.appendChild(listItem);
-
+        //console.log(fileList);
         const removeButton = listItem.querySelector('.file-remove');
+
         removeButton.addEventListener('click', (e) => {
             const fileName = e.target.getAttribute('data-file');
             const fileToRemove = fileList.querySelector(`[data-file="${fileName}"]`);
             console.log("File removed: " + fileToRemove)
             fileToRemove.remove();
         });
-        fileInput.files = fileList.files;
+
     }
 }
 
 
 function clearList(){
-    let fileList = document.getElementById("file-list");
+    //let fileList = document.getElementById("file-list");
     while (fileList.firstChild) {
         fileList.removeChild(fileList.firstChild);
     }

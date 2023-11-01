@@ -57,7 +57,7 @@ body {
 .file-list {
     list-style-type: none;
     padding: 0;
-    height:25vh;
+    height:15vh;
     overflow: visible;
 }
 
