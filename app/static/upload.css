@@ -1,0 +1,120 @@
+:root {
+  --main_color: lightgrey;
+  --accent_color: #2f4f4f;
+  --bg_color: #212529;
+}
+
+html {
+    font-family: "Arial", sans-serif;
+    color: var(--main_color);
+}
+
+body {
+    background: url("sea.jpg") center center no-repeat;
+    background-size: cover;
+    background-color: black;
+	margin: 0;
+    padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+#mainCanvas{
+    background-color: white;
+	margin: 5vw;
+    padding: 5vw;
+    display: flex;
+	flex-direction: column;
+	justify-content: top;
+	align-items: center;
+	opacity: 0.9;
+}
+
+.container{
+
+}
+
+.drop-area{
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: left;
+    cursor: pointer;
+	overflow: scroll;
+    min-width: 50vw;
+}
+
+.drop-area:hover {
+    border: 2px solid #ccc;
+}
+
+.drop-text {
+    font-size: 16px;
+}
+
+.file-list {
+    list-style-type: none;
+    padding: 0;
+    height:25vh;
+    overflow: visible;
+}
+
+.file-item {
+
+    margin: 5px 0;
+}
+
+.file-name {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-remove {
+    cursor: pointer;
+    color: red;
+    margin-left: 10px;
+}
+
+.box-title{
+    font-size: 2vh;
+    margin-bottom: 1vh;
+}
+
+#uploadButton{
+    margin-top: 1vh;
+    width: 100%;
+    color: lightgrey;
+    border-color: #2f4f4f;
+    background-color: #2f4f4f;
+    border-radius:  5px;
+}
+
+#clearBtn{
+    font-size: 25px;
+    color: red;
+    float: right;
+    opacity: 0.5;
+}
+
+#clearBtn:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+#file-input{
+    color: grey;
+    background-color: lightgrey;
+    margin-top: 1vh;
+    width: 100%;
+}
+
+.large-bg-icon{
+    color: var(--main_color);
+    margin-left: 40%;
+    font-size: 128px;
+    margin-bottom: 40%
+}

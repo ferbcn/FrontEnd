@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    .upload-container {
+        position: relative;
+    }
+    .upload-container input {
+        border: 1px solid #92b0b3;
+        background: #f1f1f1;
+        outline: 2px dashed #92b0b3;
+        outline-offset: -10px;
+        padding: 100px 0px 100px 250px;
+        text-align: center !important;
+        width: 500px;
+    }
+    .upload-container input:hover {
+        background: #ddd;
+    }
+    .upload-container:before {
+        position: absolute;
+        bottom: 50px;
+        left: 245px;
+        content: " (or) Drag and Drop files here. ";
+        color: #3f8188;
+        font-weight: 900;
+    }
+    .upload-btn {
+        margin-left: 300px;
+        padding: 7px 20px;
+    }
+</style>
+<script>
+
+    function uploadFiles() {
+        var files = document.getElementById('file_upload').files;
+        if(files.length==0){
+            alert("Please first choose or drop any file(s)...");
+            return;
+        }
+        var filenames="";
+        for(var i=0;i<files.length;i++){
+            filenames+=files[i].name+"\n";
+        }
+        alert("Uploading file(s) :\n____________________\n"+filenames);
+
+        const formData = new FormData();
+
+        for (let i = 0; i < files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        fetch("/upload", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                alert("Files uploaded successfully.");
+            })
+            .catch(error => {
+                console.error("Error uploading files:", error);
+                alert("An error occurred while uploading files.");
+            });
+        }
+
+</script>
+</head>
+<body>
+    <div class="upload-container">
+        <input type="file" id="file_upload" multiple />
+    </div>
+    <br>
+    <button class="upload-btn" onclick="uploadFiles()">Submit</button>
+</body>
+</html>

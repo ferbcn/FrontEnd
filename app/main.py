@@ -2,7 +2,7 @@ import json
 
 import uvicorn
 
-from fastapi import FastAPI, Request, WebSocket
+from fastapi import FastAPI, Request, WebSocket, File, UploadFile
 from fastapi.responses import HTMLResponse
 
 from starlette.staticfiles import StaticFiles
@@ -28,20 +28,34 @@ def index(request: Request):
     return templates.TemplateResponse("fire.html", {"request": request})
 
 
+@app.get("/upload", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("upload.html", {"request": request})
+
+
+@app.post("/upload")
+async def upload_file(files: List[UploadFile]):
+    try:
+        # Debugging: Log received files
+        for file in files:
+            print(f"Received file: {file.filename}")
+
+            with open("upload/" + file.filename, "wb") as f:
+                f.write(file.file.read())
+        return {"filename": file.filename}
+
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@app.get("/fileupload", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("fileupload.html", {"request": request})
+
+
 @app.get("/tail", response_class=HTMLResponse)
 def index(request: Request):
-    projects = [
-                {"title": "Project1", "url": "www.google.com", "category": "Backend",
-                 "users": [{"name":"John", "avatar":"john.jpg"},
-                           {"name":"Alice", "avatar":"alice.jpg"}
-                           ]},
-                {"title": "Project2", "url": "www.google.com", "category": "Front",
-                 "users": [{"name": "Bob", "avatar": "bob.jpg"},
-                           {"name": "Alice", "avatar": "alice.jpg"},
-                           {"name": "Eve", "avatar": "eve.jpg"}
-                           ]}
-                ]
-    return templates.TemplateResponse("tail.html", {"request": request, "projects": projects})
+    return templates.TemplateResponse("tail.html", {"request": request})
 
 
 # Websocket endpoint

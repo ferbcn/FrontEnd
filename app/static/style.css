@@ -28,7 +28,7 @@ body {
 
 #mainCanvas{
     background-color: white;
-    opacity: 0.8;
+    opacity: 0.9;
     margin: 5vw;
     padding: 5vw;
     display: flex;
@@ -36,7 +36,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	height: 50vh;
-
+    min-width: 60%;
 	transition: opacity 1s ease; /* You can adjust the duration and easing function */
 }
 
@@ -49,9 +49,9 @@ input[type=checkbox]{
 label {
 	cursor: pointer;
 	text-indent: -9999px;
-	width: 200px;
-	height: 100px;
-	background: grey;
+	width: 120px;
+	height: 60px;
+	background: #2f4f4f;
 	display: block;
 	border-radius: 100px;
 	position: relative;
@@ -62,10 +62,10 @@ label:after {
 	position: absolute;
 	top: 5px;
 	left: 5px;
-	width: 90px;
-	height: 90px;
+	width: 50px;
+	height: 50px;
 	background: #fff;
-	border-radius: 90px;
+	border-radius: 50px;
 	transition: 0.3s;
 }
 
@@ -76,7 +76,6 @@ input:checked + label {
 input:checked + label:after {
 	left: calc(100% - 5px);
 	transform: translateX(-100%);
-
 }
 
 label:active:after {
@@ -88,7 +87,6 @@ label:active:after {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-
     margin-top: 25px;
     width: 20vw;
     height: 10vh;
@@ -101,5 +99,16 @@ label:active:after {
 }
 
 .base-icon:hover{
-    color: white;
+    color: lightgrey;
 }
+
+.box-title{
+    color: #2f4f4f;
+    font-size: 2vh;
+    margin: 1vh;
+}
+
+.fa-user {
+    color: #2f4f4f;
+}
+
