@@ -2,6 +2,8 @@ const dropArea = document.getElementById('drop-area');
 const fileInput = document.getElementById('file-input');
 const fileList = document.getElementById('file-list');
 
+var files = [];
+
 // Prevent the default behavior for the drop area
 dropArea.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -17,79 +19,58 @@ dropArea.addEventListener('drop', (e) => {
     e.preventDefault();
     dropArea.classList.remove('active');
     const droppedFiles = e.dataTransfer.files;
-
     // add files to drop area
     handleFiles(droppedFiles);
-
-    // Add files to the fileInput area
-    const combinedFiles = Array.from(fileInput.files);
-    // Append the dropped files to the combinedFiles array
-    for (let i = 0; i < droppedFiles.length; i++) {
-        combinedFiles.push(droppedFiles[i]);
-    }
-    // Create a new FileList object from the combinedFiles array
-    const newFileList = new DataTransfer();
-    combinedFiles.forEach((file) => {
-        newFileList.items.add(file);
-    });
-    // Set the newFileList as the new files for the file input
-    fileInput.files = newFileList.files;
-    currentFiles = fileInput.files;
-    console.log(currentFiles);
-
 });
 
 // Handle file input change
 fileInput.addEventListener('change', (e) => {
-    const files = fileInput.files;
-    //console.log(files);
-    // clear file list
-    while (fileList.firstChild) {
-        fileList.removeChild(fileList.firstChild);
-    }
-    handleFiles(files);
+    const selectedFiles = Array.from(e.target.files);
+    handleFiles(selectedFiles);
+    fileInput.value = "";
 });
 
 
 // Add dropped or menu selected files to list
-function handleFiles(files) {
-    for (const file of files) {
+function handleFiles(newFiles) {
+    for (const file of newFiles) {
+        console.log("Adding " + newFiles.length + " file(s)...");
+        // push files to main files list
+        files.push(file);
+
+        // add html elements on the display list
         const listItem = document.createElement('li');
         listItem.classList.add('file-item');
         // this goes below:
-        // <span class="file-remove" data-file="${file.name}">&times;</span></div>
         listItem.innerHTML = `
             <div class="file-name" data-file="${file.name}">${file.name}
+            <span class="file-remove" data-file="${file.name}">&times;</span></div>
 
         `;
         fileList.appendChild(listItem);
-        //console.log(fileList);
-        /*
+
+        // custom remove button for each item
         const removeButton = listItem.querySelector('.file-remove');
         removeButton.addEventListener('click', (e) => {
             const fileName = e.target.getAttribute('data-file');
             const fileToRemove = fileList.querySelector(`[data-file="${fileName}"]`);
-            console.log("File removed: " + fileToRemove)
+            console.log("File removed: " + fileName)
             fileToRemove.remove();
+            // remove item from virtual list
+            files = files.filter(file => file.name !== fileName);
+            console.log(files);
         });
-        */
     }
 }
 
 
 function clearList(){
-    //let fileList = document.getElementById("file-list");
-    while (fileList.firstChild) {
-        fileList.removeChild(fileList.firstChild);
-    }
-    fileInput.value = '';
+    fileList.innerHTML = "";
+    files = [];
 }
 
 // send files to endpoint
 document.getElementById("uploadButton").addEventListener("click", function () {
-    const files = fileInput.files;
-
-    // let files = document.getElementById("file-list");
     // Check for missing files
     if (files.length === 0) {
         alert("Please select one or more files.");
@@ -98,13 +79,11 @@ document.getElementById("uploadButton").addEventListener("click", function () {
     // Prepare form data
     const formData = new FormData();
     let filenames = "";
-    for (let i = 0; i < files.length; i++) {
-        console.log("Sending files...")
-        let file = files[i];
-        console.log(file);
+    console.log("Sending " + files.length + " file(s)...");
+    files.forEach((file, index) => {
         filenames += file.name+"\n";
         formData.append("files", file);
-    }
+    });
     // alert("Uploading file(s) :\n____________________\n"+filenames);
     fetch("/upload", {
         method: "POST",
@@ -112,7 +91,6 @@ document.getElementById("uploadButton").addEventListener("click", function () {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             alert(files.length + " file(s) uploaded successfully.");
             clearList();
         })
@@ -121,3 +99,13 @@ document.getElementById("uploadButton").addEventListener("click", function () {
             // alert("An error occurred while uploading files.");
         });
 });
+
+// avoid loading files (default browser behaviour) when drag&drop action is out of drop area (
+window.addEventListener("dragover",function(e){
+        e = e || event;
+        e.preventDefault();
+    },false);
+window.addEventListener("drop",function(e){
+    e = e || event;
+    e.preventDefault();
+},false);

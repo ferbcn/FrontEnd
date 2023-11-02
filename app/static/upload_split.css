@@ -1,5 +1,5 @@
 :root {
-  --main_color: #2f4f4f;
+  --main_color: grey;
   --accent_color: #2f4f4f;
   --bg_color: #212529;
 }
@@ -42,9 +42,7 @@ body {
 
 .file-list, .file-input {
     flex: 1;
-    margin: 1vh;
-    border: 1px solid #ccc;
-    padding: 10px;
+    padding: 5vw;
     background-color: #f9f9f9;
     min-height: 20vh;
     max-height: 50vh;
@@ -52,8 +50,10 @@ body {
 }
 
 ul {
+    border: 2px dashed #ccc;
     list-style-type: none;
     padding: 0;
+    min-height: 10vh;
 }
 
 li {
@@ -71,17 +71,12 @@ li {
     min-height: 10vh;
 }
 
-#clear-files, #send-files {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #0074d9;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+.drag-drop:hover {
+    border: 2px solid #ccc;
 }
 
 #clear-files:hover, #send-files:hover {
-    background-color: #0056b3;
+    background-color: grey;
 }
 
 .file-remove {
@@ -97,4 +92,38 @@ ul{
     flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+#file-input{
+    color: grey;
+    background-color: lightgrey;
+    margin-top: 1vh;
+    width: 100%;
+}
+
+#clear-files, #send-files {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+}
+
+#clear-files{
+    margin-top: 1vh;
+    width: 100%;
+    color: --var(accent_color);
+    background-color: lightgrey;
+    border-radius:  5px;
+}
+
+#send-files{
+    margin-top: 1vh;
+    width: 100%;
+    color: lightgrey;
+    border-color: #2f4f4f;
+    background-color: #2f4f4f;
+    border-radius:  5px;
+}
+
+h2{
+    color: --var(main_color);
 }

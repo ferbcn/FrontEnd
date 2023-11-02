@@ -64,15 +64,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     clearFilesBtn.addEventListener("click", function () {
-        files.length = 0;
-        fileList.innerHTML = "";
+        clearAllFiles();
     });
 
     sendFilesBtn.addEventListener("click", function () {
         // Create a FormData object and append files to it
         const formData = new FormData();
+        console.log(files);
+        /*
         files.forEach((file, index) => {
             formData.append(`file${index}`, file);
+        });
+        */
+        files.forEach((file, index) => {
+            formData.append("files", file);
         });
 
         // Send a POST request using the fetch API
@@ -84,9 +89,30 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 // Handle the response data as needed
                 console.log(data);
+                clearAllFiles()
+
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
     });
+
+    // avoid loading files (default browser behaviour) when drag&drop action is out of drop area (
+    window.addEventListener("dragover",function(e){
+            e = e || event;
+            e.preventDefault();
+        },false);
+    window.addEventListener("drop",function(e){
+        e = e || event;
+        e.preventDefault();
+    },false);
+
+    // function that clears all files in the backend and frontend list
+    function clearAllFiles(){
+        files.length = 0;
+        fileList.innerHTML = "";
+    }
+
 });
+
+

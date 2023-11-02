@@ -1,3 +1,4 @@
+import os
 import json
 
 import uvicorn
@@ -28,6 +29,11 @@ def index(request: Request):
     return templates.TemplateResponse("fire.html", {"request": request})
 
 
+@app.get("/tail", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("tail.html", {"request": request})
+
+
 @app.get("/upload", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse("upload.html", {"request": request})
@@ -36,6 +42,13 @@ def index(request: Request):
 @app.post("/upload")
 async def upload_file(files: List[UploadFile]):
     try:
+        # Check if the directory exists
+        directory_path = 'upload/'
+        if not os.path.exists(directory_path):
+            # If it doesn't exist, create it
+            os.makedirs(directory_path)
+            print(f"Directory '{directory_path}' created.")
+
         # Debugging: Log received files
         for file in files:
             print(f"Received file: {file.filename}")
@@ -47,18 +60,13 @@ async def upload_file(files: List[UploadFile]):
         return {"error": str(e)}
 
 
-@app.get("/fileupload", response_class=HTMLResponse)
+@app.get("/upload_label", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("fileupload.html", {"request": request})
+    return templates.TemplateResponse("upload_label.html", {"request": request})
 
-@app.get("/fileup", response_class=HTMLResponse)
+@app.get("/upload_split", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("fileup.html", {"request": request})
-
-
-@app.get("/tail", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("tail.html", {"request": request})
+    return templates.TemplateResponse("upload_split.html", {"request": request})
 
 
 # Websocket endpoint

@@ -42,7 +42,7 @@ body {
     text-align: left;
     cursor: pointer;
 	overflow: scroll;
-    min-width: 50vw;
+    min-width: 70vw;
 }
 
 .drop-area:hover {
@@ -51,6 +51,8 @@ body {
 
 .drop-text {
     font-size: 16px;
+    font-style: italic;
+    margin-bottom: 50px;
 }
 
 .file-list {
@@ -69,6 +71,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width:100%;
 }
 
 .file-remove {
