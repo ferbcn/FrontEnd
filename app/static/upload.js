@@ -2,9 +2,16 @@ let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 let wsUrl = ws_scheme + '://' + window.location.host + "/websocket";
 let socket = new WebSocket(wsUrl);
 
+const dropArea = document.getElementById('drop-area');
+const fileInput = document.getElementById('file-input');
+const fileList = document.getElementById('file-list');
+const fileInfoText = document.getElementById('file-info-text');
+var files = [];
+
 const alertBox = document.getElementById('alert-box');
 alertBox.style.display = 'none';
 
+// Websocket functionality
 socket.onmessage = (event) => {
     const data_in = event.data;
     const jsonData = JSON.parse(data_in);
@@ -26,12 +33,7 @@ socket.onopen = function(event) {
     console.log('Connection established!');
 };
 
-const dropArea = document.getElementById('drop-area');
-const fileInput = document.getElementById('file-input');
-const fileList = document.getElementById('file-list');
-const fileInfoText = document.getElementById('file-info-text');
 
-var files = [];
 
 // Prevent the default behaviour for the non-drop area
 window.addEventListener("dragover",function(e){
@@ -108,6 +110,7 @@ function displayAlert(mes) {
     console.log(mes);
 }
 
+// Clear alertBox when clicked anywhere on the box
 document.getElementById("alert-box").addEventListener("click", function () {
     alertBox.style.display='none';
 });

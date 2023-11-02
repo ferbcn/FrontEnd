@@ -42,7 +42,7 @@ body {
     text-align: left;
     cursor: pointer;
 	overflow: scroll;
-    width: 60vw;
+    width: 66vw;
     max-width: 800px;
 }
 
@@ -87,20 +87,20 @@ body {
 }
 
 #uploadButton{
-    margin-top: 1vh;
+    margin-top: 2vh;
     width: 100%;
     color: lightgrey;
     border-color: var(--accent_color);
     background-color: var(--accent_color);
     height: 50px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    outline: 0;
 }
-
 
 #uploadButton:hover{
     border-color: var(--bg_color);
     background-color: var(--bg_color);
 }
-
 
 .choose-container {
     display: flex;
@@ -109,9 +109,11 @@ body {
     color: grey;
     padding: 10px;
     background-color: var(--main_color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
 }
 
 #chooseButton{
+    outline: 0;
     width: 25%;
     color: lightgrey;
     border-color: grey;
@@ -187,6 +189,7 @@ body {
     width:60%;
     height: 100px;
     background: var(--accent_color);
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
     /*-webkit-animation: fadeinout 2s linear forwards;*/
 }
 
@@ -198,4 +201,13 @@ body {
 .alert-cross{
     color: red;
     float: right;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
+    border:none;
+}
+
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: 0;
 }
