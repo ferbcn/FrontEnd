@@ -94,7 +94,7 @@ label:active:after {
 .base-icon{
     padding: 20px;
     font-size: 48px;
-    color: #2f4f4f;
+    color: var(--main_color);
 }
 
 .base-icon:hover{

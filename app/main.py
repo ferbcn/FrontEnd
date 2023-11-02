@@ -1,5 +1,6 @@
 import os
 import json
+import random
 
 import uvicorn
 
@@ -48,15 +49,28 @@ async def upload_file(files: List[UploadFile]):
             # If it doesn't exist, create it
             os.makedirs(directory_path)
             print(f"Directory '{directory_path}' created.")
-
-        # Debugging: Log received files
+        file_list = []
         for file in files:
-            print(f"Received file: {file.filename}")
-            with open("upload/" + file.filename, "wb") as f:
+            filename = file.filename
+            print(f"Received file: {filename}")
+            n = 1
+            # Catch existing and reassign filename
+            filename_name, file_extension = os.path.splitext(filename)
+            if os.path.exists(directory_path + filename):
+                print("Filename exists!")
+                while os.path.exists(directory_path + filename):
+                    filename = f"{filename_name}_{n}{file_extension}"
+                    n += 1
+            # Save the file
+            with open("upload/" + filename, "wb") as f:
                 f.write(file.file.read())
-        return {"filename": file.filename}
+                file_list.append(filename)
+                print(f"File saved: {filename}!")
+
+        return {"type": "alert", "content": file_list}
 
     except Exception as e:
+        print(e)
         return {"error": str(e)}
 
 
