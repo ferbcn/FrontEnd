@@ -18,13 +18,10 @@ dropArea.addEventListener('drop', (e) => {
     dropArea.classList.remove('active');
     const droppedFiles = e.dataTransfer.files;
 
+    // add files to drop area
     handleFiles(droppedFiles);
-    // Add the dropped files to the file input
-    // Life could be so easy as // fileInput.files.add = droppedFiles;
-    // But no way to concat easier?
 
-    // Create a new array to store both the existing and dropped files
-    // console.log(fileInput.files);
+    // Add files to the fileInput area
     const combinedFiles = Array.from(fileInput.files);
     // Append the dropped files to the combinedFiles array
     for (let i = 0; i < droppedFiles.length; i++) {
@@ -59,21 +56,23 @@ function handleFiles(files) {
     for (const file of files) {
         const listItem = document.createElement('li');
         listItem.classList.add('file-item');
+        // this goes below:
+        // <span class="file-remove" data-file="${file.name}">&times;</span></div>
         listItem.innerHTML = `
             <div class="file-name" data-file="${file.name}">${file.name}
-            <span class="file-remove" data-file="${file.name}">&times;</span></div>
+
         `;
         fileList.appendChild(listItem);
         //console.log(fileList);
+        /*
         const removeButton = listItem.querySelector('.file-remove');
-
         removeButton.addEventListener('click', (e) => {
             const fileName = e.target.getAttribute('data-file');
             const fileToRemove = fileList.querySelector(`[data-file="${fileName}"]`);
             console.log("File removed: " + fileToRemove)
             fileToRemove.remove();
         });
-
+        */
     }
 }
 

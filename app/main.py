@@ -39,7 +39,6 @@ async def upload_file(files: List[UploadFile]):
         # Debugging: Log received files
         for file in files:
             print(f"Received file: {file.filename}")
-
             with open("upload/" + file.filename, "wb") as f:
                 f.write(file.file.read())
         return {"filename": file.filename}
@@ -51,6 +50,10 @@ async def upload_file(files: List[UploadFile]):
 @app.get("/fileupload", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse("fileupload.html", {"request": request})
+
+@app.get("/fileup", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("fileup.html", {"request": request})
 
 
 @app.get("/tail", response_class=HTMLResponse)

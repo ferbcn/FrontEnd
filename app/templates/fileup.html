@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='fileupload.css') }}">
+
+    <script defer src="{{ url_for('static', path='fontawesome/js/solid.js') }}"></script>
+    <script defer src="{{ url_for('static', path='fontawesome/js/fontawesome.js') }}"></script>
+
+    <title>Custom File Input</title>
+</head>
+<body>
+
+    <div id="main-canvas">
+        <div class="custom-file-input">
+            <div class="file-list">
+                <h2>Uploaded Files</h2>
+                <button id="clear-files">Clear Files</button>
+                <ul id="file-list">
+                    <!-- File names will be added here dynamically -->
+                </ul>
+            </div>
+            <div class="file-input">
+                <h2>Drag & Drop or Choose Files</h2>
+                <div class="drag-drop" id="drag-drop-area">
+                    Drop files here
+                </div>
+                <input type="file" id="file-input" multiple>
+                <button id="send-files">Send Files</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='fileupload.js') }}"></script>
+
+</body>
+</html>

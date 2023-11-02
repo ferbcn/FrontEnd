@@ -1,0 +1,100 @@
+:root {
+  --main_color: #2f4f4f;
+  --accent_color: #2f4f4f;
+  --bg_color: #212529;
+}
+
+html {
+    font-family: "Arial", sans-serif;
+    color: var(--main_color);
+}
+
+body {
+    background: url("sea.jpg") center center no-repeat;
+    background-size: cover;
+    background-color: black;
+	margin: 0;
+    padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+#mainCanvas{
+    background-color: white;
+	margin: 5vw;
+    padding: 5vw;
+    display: flex;
+	flex-direction: column;
+	justify-content: top;
+	align-items: center;
+	opacity: 0.9;
+}
+
+.custom-file-input {
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 20px;
+    width: 80vw;
+}
+
+.file-list, .file-input {
+    flex: 1;
+    margin: 1vh;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    min-height: 20vh;
+    max-height: 50vh;
+    overflow: scroll;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.drag-drop {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    min-height: 10vh;
+}
+
+#clear-files, #send-files {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #0074d9;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#clear-files:hover, #send-files:hover {
+    background-color: #0056b3;
+}
+
+.file-remove {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    cursor: pointer;
+    color: red;
+    margin-left: 10px;
+}
+
+ul{
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

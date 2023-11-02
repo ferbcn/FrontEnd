@@ -94,6 +94,7 @@ label:active:after {
 .base-icon{
     padding: 20px;
     font-size: 48px;
+    color: #2f4f4f;
 }
 
 .base-icon:hover{
@@ -104,10 +105,6 @@ label:active:after {
     color: #2f4f4f;
     font-size: 2vh;
     margin-bottom: 5vh;
-}
-
-.fa-file-circle-plus {
-    color: #2f4f4f;
 }
 
 .switch-container{
