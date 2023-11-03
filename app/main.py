@@ -82,6 +82,14 @@ def index(request: Request):
 def index(request: Request):
     return templates.TemplateResponse("upload_split.html", {"request": request})
 
+@app.get("/uploader", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("uploader.html", {"request": request})
+
+@app.get("/uploader2", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("uploader2.html", {"request": request})
+
 
 # Websocket endpoint
 @app.websocket("/websocket")

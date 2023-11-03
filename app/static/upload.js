@@ -74,8 +74,8 @@ document.getElementById("uploadButton").addEventListener("click", function () {
         return;
     }
     // Prepare form data
-    const formData = new FormData();
     console.log("Sending " + files.length + " file(s)...");
+    const formData = new FormData();
     files.forEach((file, index) => {
         formData.append("files", file);
     });
@@ -87,18 +87,42 @@ document.getElementById("uploadButton").addEventListener("click", function () {
         .then(data => {
             //console.log(data);
             clearList();
+            /*
             let type = data.type;
             let content = data.content;
             if (type === "alert"){
                 let mes = `${content.length} File(s) uploaded successfully!`;
                 displayAlert(mes);
             }
+            */
         })
         .catch(error => {
             console.error("Error uploading files:", error);
             displayAlert("Error Uploading File(s)!");
         });
+
 });
+
+function uploadFile(file){
+    console.log("Sending " + files.length + " file(s)...");
+
+    // Prepare form data
+    const formData = new FormData();
+    formData.append("files", file);
+
+    fetch("/upload", {
+        method: "POST",
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error("Error uploading files:", error);
+            displayAlert("Error Uploading File(s)!");
+        });
+}
 
 function displayAlert(mes) {
     alertBox.style.display='block';
@@ -142,6 +166,9 @@ function handleFiles(newFiles) {
             console.log("Adding " + newFiles.length + " file(s)...");
             // push files to main files list
             files.push(file);
+
+            // upload files as soon as they are added
+            uploadFile(file);
 
             // add html elements on the display list
             const listItem = document.createElement('li');

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://daneden.me/animate/animate.css" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='uploader.css') }}">
+
+</head>
+  <body>
+    <div id="wrapper">
+      <div id="uploader">
+        <div class="title">
+          <h2>UPLOAD FORM</h2><h2><span class="close"><i class="icon-off"></i></span></h2>
+        </div>
+        <div class="body">
+          <div class="dropzone"><i class="icon-cloud-upload"></i> Drop Here</div>
+                  <div class="list">
+            <ul>
+              <li><i class="icon-file-alt"></i>index.html <span class="cancel"><i class="icon-minus-sign"></i></span></li>
+              <li><i class="icon-file-alt"></i>style.css <span class="cancel"><i class="icon-minus-sign"></i></span></li>
+              <li><i class="icon-file-alt"></i>jquery.js <span class="cancel"><i class="icon-minus-sign"></i></span></li>
+              <li><i class="icon-file-alt"></i>logo.png <span class="cancel"><i class="icon-minus-sign"></i></span></li>
+              <li><i class="icon-file-alt"></i>logo.png <span class="cancel"><i class="icon-minus-sign"></i></span></li>
+            </ul>
+          </div>
+          <div class="progress">
+            <div class="bar"></div>
+            <div class="tip">50%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

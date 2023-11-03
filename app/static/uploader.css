@@ -1,0 +1,186 @@
+@import "compass/css3";
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+html { width: 100%; height: 100%; overflow: hidden; }
+body {
+  @include background-image(radial-gradient(50% 100%, ellipse cover, rgba(61,110,178,.2) 50%,rgba(28,45,83,0) 100%), radial-gradient(100% 10%, ellipse cover, rgba(185,75,12,.6) 20%,rgba(72,154,50,.3) 80%), linear-gradient(left top, rgba(71,94,173,1) 1%,rgba(174,132,57,1) 50%,rgba(29,37,65,1) 100%));
+}
+
+#uploader {
+  position:absolute;
+  z-index:5;
+  top:40%;
+  left:50%;
+  width:460px;
+  margin:-120px 0 0 -230px;
+  box-shadow:rgba(0,0,0,0.8) 0 0px 10px,rgba(0,0,0,0.65) 0 0 10px 1px,inset rgba(255,255,255,0.15) 0 1px 0,inset rgba(0,0,0,0.25) 0 -1px 0;
+  border-radius:5px;
+  -moz-background-clip:padding;
+  -webkit-background-clip:padding-box;
+  background-clip:padding-box;
+  overflow:hidden;
+  visibility:visible
+}
+
+.title {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  left: 0px;
+  background-color: rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+.title h2 {
+  color: rgba(0,0,0,0.75);
+  margin-left: 10px;
+  margin-top: 10px;
+  font-family: "Arial";
+  text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.25);
+  float:left;
+  font-size: 120%;
+}
+.title .close {
+  position: absolute;
+  right: 10px;
+  color: rgba(0,0,0,0.55);
+  text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.25);
+  &:hover {
+    color: rgba(255,255,255,0.99);
+    text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
+  }
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.15);
+  /*position: absolute;*/
+  left: 0px;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  margin-top: 41px;
+  padding-bottom: 10px;
+  font-family: "Arial";
+  .dropzone {
+    color: #f0f0f0;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.45);
+    margin: 10px;
+    height: 32px;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 120%;
+    line-height: 32px;
+    vertical-align: middle;
+    box-shadow: inset 0px 0px 0 rgba(0,0,0,0.2),
+      inset 0 -1px 0 rgba(255,255,255,.25),
+      inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.5);
+    background-color: rgba(0,0,0,0.15);
+
+    i {
+      font-size: 32px;
+      vertical-align: middle;
+    }
+  }
+  .list  {
+    min-height: 180px;
+    height: 20px;
+    overflow: hidden;
+  }
+  .list ul {
+    list-style: none;
+    list-style-type: none;
+    padding-left: 0em;
+    text-indent: 0em;
+  }
+  .list ul > li {
+    color: #ccc;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(0,0,0,0.25);
+    margin: 10px;
+    line-height: 30px;
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 0 rgba(0,0,0,0.2),
+      inset 0 -1px 0 rgba(255,255,255,.25),
+      inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.5);
+    background-color: rgba(0,0,0,0.35);
+    floar:left;
+  }
+  .list ul > li .cancel {
+    float:right;;
+      margin-right: 5px;
+    color: #888;
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.35);
+  }
+  .list ul > li .cancel:hover {
+    float:right;;
+      margin-right: 5px;
+    color: #ccc;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.35);
+  }
+}
+
+
+
+.progress {
+  border: 1px solid #222;
+  margin: 10px;
+  height: 10px;
+  margin-bottom: 40px;
+  border-radius: 2px;
+  box-shadow: inset 0px 0px 0 rgba(0,0,0,0.2),
+    inset 0 -1px 0 rgba(255,255,255,.25),
+    inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.5);
+  background-color: rgba(0,0,0,0.35);
+  .bar {
+    width: 50%;
+    height: 100%;
+    background-color: #F2BC26;
+    box-shadow: 0px 0px 10px 2px #F47B25;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  .tip {
+    width: 40px;
+    margin-top: 15px;
+    height: 20px;
+    background-color: rgba(255,255,255,1);
+    text-align: center;
+    line-height: 22px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    left: 50%;
+    margin-left: -20px;
+    position:relative;
+    color: #333;
+    opacity: 0.75;
+    font-family: "Arial";
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45);
+    &:before {
+      content:"";
+      border-color: transparent  transparent #000 transparent;
+      border-style:solid;
+      border-width:5px;
+      width:0;
+      height:0;
+      position:absolute;
+      top: -10px;
+      left: 50%;
+      margin-left: -5px;
+    }
+    &:after {
+      content:"";
+      border-color: transparent transparent rgba(255,255,255,1) transparent;
+      border-style:solid;
+      border-width:5px;
+      width:0;
+      height:0;
+      position:absolute;
+      top: -9px;
+      left: 50%;
+      margin-left: -5px;
+    }
+  }
+}
