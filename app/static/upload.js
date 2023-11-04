@@ -76,7 +76,7 @@ document.getElementById("alert-box").addEventListener("click", function () {
 
 // Handles dropped or selected files
 function handleDroppedOrSelectedFiles(newFiles){
-    console.log(newFiles);
+    console.log("Uploading files: " + newFiles);
     for (const file of newFiles) {
         if (isFileInArray(file, files)){
             console.log(`File <${file.name}> already uploaded during current session!`);
