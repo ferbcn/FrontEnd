@@ -37,12 +37,14 @@ body {
 }
 
 .drop-area{
+    display: flex;
+	flex-direction: column;
+	justify-content: top;
+	align-items: center;
     border: 2px dashed #ccc;
     padding: 20px;
     text-align: left;
     cursor: pointer;
-	overflow: scroll;
-    width: 66vw;
     max-width: 800px;
 }
 
@@ -54,31 +56,6 @@ body {
     font-size: 16px;
     font-style: italic;
     margin-bottom: 15px;
-}
-
-.file-list {
-    list-style-type: none;
-    padding: 0;
-    overflow: visible;
-    height: 40vh;
-}
-
-.file-item {
-    margin: 5px 0;
-}
-
-.file-name {
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width:100%;
-}
-
-.file-remove {
-    cursor: pointer;
-    color: red;
-    margin-left: 10px;
 }
 
 .box-title{
@@ -102,7 +79,7 @@ body {
     background-color: var(--bg_color);
 }
 
-.choose-container {
+.file-info-container {
     display: flex;
 	flex-direction: row;
 	align-items: left;
@@ -110,19 +87,6 @@ body {
     padding: 10px;
     background-color: var(--main_color);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
-}
-
-#chooseButton{
-    outline: 0;
-    width: 25%;
-    color: lightgrey;
-    border-color: grey;
-    background-color: grey;
-    margin-right: 10px;
-}
-
-.file-info-container {
-    padding-top: 15px;
     opacity: 1;
     transition: opacity 1s linear;
 }
@@ -148,14 +112,18 @@ body {
 }
 
 .large-bg-icon{
+    width: 100%;
     color: var(--main_color);
-    margin-left: 40%;
     font-size: 128px;
-    margin-bottom: 40%
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .small-file-icon {
     color: var(--accent_color);
+    margin-left: 10px;
     margin-right: 10px;
     padding-top: 5px;
     opacity: 0.5;
@@ -210,4 +178,70 @@ body {
 
 .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
     outline: 0;
+}
+
+.progress-area{
+    padding: 10px;
+    margin-top: 20px;
+    text-align: left;
+    cursor: pointer;
+	overflow: scroll;
+    max-width: 800px;
+    list-style-type: none;
+    overflow: visible;
+    overflow: scroll;
+    width: 70vw;
+}
+
+.progress-area .row .content{
+  width: 90%;
+  margin-left: 15px;
+}
+.progress-area .details{
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  justify-content: space-between;
+}
+.progress-area .content .progress-bar{
+  height: 6px;
+  width: 100%;
+  margin-bottom: 4px;
+  background: #fff;
+  border-radius: 30px;
+}
+.content .progress-bar .progress{
+  height: 100%;
+  width: 0%;
+  background: var(--accent_color);
+  border-radius: inherit;
+}
+.uploaded-area{
+  padding-left: 10px;
+  height: 15vh;
+  max-height: 25vh;
+  overflow-y: scroll;
+}
+.uploaded-area.onprogress{
+  height: 15vh;
+  max-height: 25vh;
+}
+.uploaded-area::-webkit-scrollbar{
+  width: 0px;
+}
+.uploaded-area .row .content{
+  display: flex;
+  align-items: center;
+}
+.uploaded-area .row .details{
+  display: flex;
+  margin-left: 15px;
+  flex-direction: column;
+}
+.uploaded-area .row .details .size{
+  color: #404040;
+  font-size: 11px;
+}
+.uploaded-area i.fa-check{
+  font-size: 24px;
 }

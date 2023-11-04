@@ -2,23 +2,20 @@ const form = document.querySelector("form"),
 fileInput = document.querySelector(".file-input"),
 progressArea = document.querySelector(".progress-area"),
 uploadedArea = document.querySelector(".uploaded-area");
+
 form.addEventListener("click", () =>{
   fileInput.click();
 });
+
 fileInput.onchange = ({target})=>{
-  let file = target.files[0];
-  if(file){
-    let fileName = file.name;
-    if(fileName.length >= 12){
-      let splitName = fileName.split('.');
-      fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
-    }
-    uploadFile(fileName);
+  let files = target.files;
+  console.log(files);
+  for (let i=0; i++; i<files.length){
+    uploadFile(files[n]);
   }
 }
 
-
-function uploadFile(name){
+function uploadFile(file){
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "/upload");
   xhr.upload.addEventListener("progress", ({loaded, total}) =>{
@@ -30,7 +27,7 @@ function uploadFile(name){
                           <i class="fas fa-file-alt"></i>
                           <div class="content">
                             <div class="details">
-                              <span class="name">${name} • Uploading</span>
+                              <span class="name">${file.name} • Uploading</span>
                               <span class="percent">${fileLoaded}%</span>
                             </div>
                             <div class="progress-bar">
@@ -46,7 +43,7 @@ function uploadFile(name){
                             <div class="content upload">
                               <i class="fas fa-file-alt"></i>
                               <div class="details">
-                                <span class="name">${name} • Uploaded</span>
+                                <span class="name">${file.name} • Uploaded</span>
                                 <span class="size">${fileSize}</span>
                               </div>
                             </div>
@@ -56,28 +53,8 @@ function uploadFile(name){
       uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
     }
   });
-  let data = new FormData(form);
-  xhr.send(data);
-}
-
-
-function uploadSingleFile(file){
-    console.log("Sending " + files.length + " file(s)...");
-
-    // Prepare form data
-    const formData = new FormData();
-    formData.append("files", file);
-
-    fetch("/upload", {
-        method: "POST",
-        body: formData,
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error("Error uploading files:", error);
-            displayAlert("Error Uploading File(s)!");
-        });
+  // Prepare form data
+  const formData = new FormData();
+  formData.append("files", file);
+  xhr.send(formData);
 }

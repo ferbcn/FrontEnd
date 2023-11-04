@@ -1,37 +1,25 @@
 <!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
 <html lang="en">
-
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://daneden.me/animate/animate.css" />
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload JavaScript with Progress Ba | CodingNepal</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', path='uploader.css') }}">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
-  <body>
-    <div id="wrapper">
-      <div id="uploader">
-        <div class="title">
-          <h2>UPLOAD FORM</h2><h2><span class="close"><i class="icon-off"></i></span></h2>
-        </div>
-        <div class="body">
-          <div class="dropzone"><i class="icon-cloud-upload"></i> Drop Here</div>
-                  <div class="list">
-            <ul>
-              <li><i class="icon-file-alt"></i>index.html <span class="cancel"><i class="icon-minus-sign"></i></span></li>
-              <li><i class="icon-file-alt"></i>style.css <span class="cancel"><i class="icon-minus-sign"></i></span></li>
-              <li><i class="icon-file-alt"></i>jquery.js <span class="cancel"><i class="icon-minus-sign"></i></span></li>
-              <li><i class="icon-file-alt"></i>logo.png <span class="cancel"><i class="icon-minus-sign"></i></span></li>
-              <li><i class="icon-file-alt"></i>logo.png <span class="cancel"><i class="icon-minus-sign"></i></span></li>
-            </ul>
-          </div>
-          <div class="progress">
-            <div class="bar"></div>
-            <div class="tip">50%</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
+<body>
+  <div class="wrapper">
+    <header>File Uploader JavaScript</header>
+    <form action="#">
+      <input class="file-input" type="file" name="file" hidden multiple>
+      <i class="fas fa-cloud-upload-alt"></i>
+      <p>Browse File to Upload</p>
+    </form>
+    <section class="progress-area"></section>
+    <section class="uploaded-area"></section>
+  </div>
+      <script src="{{ url_for('static', path='uploader.js') }}"></script>
+</body>
 </html>

@@ -4,7 +4,8 @@ let socket = new WebSocket(wsUrl);
 
 const dropArea = document.getElementById('drop-area');
 const fileInput = document.getElementById('file-input');
-const fileList = document.getElementById('file-list');
+const progressArea = document.querySelector(".progress-area");
+const uploadedArea = document.querySelector(".uploaded-area");
 const fileInfoText = document.getElementById('file-info-text');
 var files = [];
 
@@ -34,7 +35,6 @@ socket.onopen = function(event) {
 };
 
 
-
 // Prevent the default behaviour for the non-drop area
 window.addEventListener("dragover",function(e){
         e = e || event;
@@ -45,94 +45,28 @@ window.addEventListener("drop",function(e){
     e.preventDefault();
 },false);
 
+
 // Handle dropped files
 dropArea.addEventListener('drop', (e) => {
     dropArea.classList.remove('active');
     const droppedFiles = e.dataTransfer.files;
-    // add files to drop area
-    handleFiles(droppedFiles);
+    handleDroppedOrSelectedFiles(droppedFiles);
 });
 
-// Handle file input change
+
+// Handle selected files on file input change
 fileInput.addEventListener('change', (e) => {
     const selectedFiles = Array.from(e.target.files);
-    handleFiles(selectedFiles);
+    console.log("change: ", selectedFiles);
+    handleDroppedOrSelectedFiles(selectedFiles)
     fileInput.value = "";
 });
 
 
- // listen for custom file select button and simulate click on hidden fileInput element
-document.getElementById("chooseButton").addEventListener("click", function () {
+// listen for custom file select button and simulate click on hidden fileInput element
+document.getElementById("drop-area").addEventListener("click", function () {
     fileInput.click();
 });
-
-// send files to endpoint
-document.getElementById("uploadButton").addEventListener("click", function () {
-    // Check for missing files
-    if (files.length === 0) {
-        displayAlert("Please select one or more files.");
-        return;
-    }
-    // Prepare form data
-    console.log("Sending " + files.length + " file(s)...");
-    const formData = new FormData();
-    files.forEach((file, index) => {
-        formData.append("files", file);
-    });
-    fetch("/upload", {
-        method: "POST",
-        body: formData,
-    })
-        .then(response => response.json())
-        .then(data => {
-            //console.log(data);
-            clearList();
-            /*
-            let type = data.type;
-            let content = data.content;
-            if (type === "alert"){
-                let mes = `${content.length} File(s) uploaded successfully!`;
-                displayAlert(mes);
-            }
-            */
-        })
-        .catch(error => {
-            console.error("Error uploading files:", error);
-            displayAlert("Error Uploading File(s)!");
-        });
-
-});
-
-function uploadFile(file){
-    console.log("Sending " + files.length + " file(s)...");
-
-    // Prepare form data
-    const formData = new FormData();
-    formData.append("files", file);
-
-    fetch("/upload", {
-        method: "POST",
-        body: formData,
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error("Error uploading files:", error);
-            displayAlert("Error Uploading File(s)!");
-        });
-}
-
-function displayAlert(mes) {
-    alertBox.style.display='block';
-    alertBox.textContent = mes;
-    const iconElement = document.createElement('i');
-    iconElement.className = 'fa-solid fa-xmark alert-cross';
-    // Append the <i> element to the target <div>
-    alertBox.appendChild(iconElement);
-    console.log(mes);
-}
 
 // Clear alertBox when clicked anywhere on the box
 document.getElementById("alert-box").addEventListener("click", function () {
@@ -140,10 +74,85 @@ document.getElementById("alert-box").addEventListener("click", function () {
 });
 
 
-function clearList(){
-    fileList.innerHTML = '';
-    files = [];
-    fileInfoText.textContent = files.length + " File(s) selected";
+// Handles dropped or selected files
+function handleDroppedOrSelectedFiles(newFiles){
+    console.log(newFiles);
+    for (const file of newFiles) {
+        if (isFileInArray(file, files)){
+            console.log(`File <${file.name}> already uploaded during current session!`);
+        }
+        else{
+            uploadSingleFile(file)
+        }
+    }
+}
+
+
+function uploadSingleFile(file){
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "/upload");
+  // catch network errors
+  xhr.onerror = function() {
+    console.log('Network error occurred:', xhr.status, xhr.statusText);
+    displayAlert("Upload error!")
+    uploadedArea.classList.remove("onprogress");
+    progressArea.innerHTML = "";
+  };
+
+  xhr.upload.addEventListener("progress", ({loaded, total}) =>{
+    let fileLoaded = Math.floor((loaded / total) * 100);
+    let fileTotal = Math.floor(total / 1000);
+    let fileSize;
+    (fileTotal < 1024) ? fileSize = fileTotal + " KB" : fileSize = (loaded / (1024*1024)).toFixed(2) + " MB";
+    let progressHTML = `<li class="row">
+                          <i class="fas fa-file small-file-icon"></i>
+                          <div class="content">
+                            <div class="details">
+                              <span class="name">${file.name} • Uploading</span>
+                              <span class="percent">${fileLoaded}%</span>
+                            </div>
+                            <div class="progress-bar">
+                              <div class="progress" style="width: ${fileLoaded}%"></div>
+                            </div>
+                          </div>
+                        </li>`;
+    uploadedArea.classList.add("onprogress");
+    progressArea.innerHTML = progressHTML;
+    if(loaded == total){
+      progressArea.innerHTML = "";
+      let uploadedHTML = `<li class="row">
+                            <i class="fas fa-file small-file-icon"></i>
+                            <div class="content upload">
+                              <div class="details">
+                                <span class="name">${file.name} • Uploaded</span>
+                                <span class="size">${fileSize}</span>
+                              </div>
+                            </div>
+                            <i class="fas fa-check small-file-icon"></i>
+                          </li>`;
+      uploadedArea.classList.remove("onprogress");
+      uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+      // push files to main files list
+      files.push(file);
+      fileInfoText.textContent = files.length + " File(s) uploaded";
+    }
+  });
+
+  // send form data
+  const formData = new FormData();
+  formData.append("files", file);
+  xhr.send(formData);
+}
+
+// Helper functions
+function displayAlert(mes) {
+    alertBox.style.display='block';
+    alertBox.textContent = mes;
+    const iconElement = document.createElement('i');
+    iconElement.className = 'fa-solid fa-xmark alert-cross';
+    alertBox.appendChild(iconElement);
+    console.log(mes);
 }
 
 // Function to check if a file object is present in the array
@@ -156,48 +165,6 @@ function truncateFileName(fileName, maxLength) {
     return fileName.slice(0, maxLength) + '...';
   }
   return fileName;
-}
-
-// Add dropped or menu selected files to list
-function handleFiles(newFiles) {
-    for (const file of newFiles) {
-        if (!isFileInArray(file, files)){
-            console.log(file);
-            console.log("Adding " + newFiles.length + " file(s)...");
-            // push files to main files list
-            files.push(file);
-
-            // upload files as soon as they are added
-            uploadFile(file);
-
-            // add html elements on the display list
-            const listItem = document.createElement('li');
-            listItem.classList.add('file-item');
-            // this goes below:
-            listItem.innerHTML = `
-                <div class="file-container" "file-name" title="${file.name}" data-file="${file.name}">
-                    <i class="fa-solid fa-file small-file-icon"></i>
-                    ${truncateFileName(file.name, 50)} (${(file.size/1000000).toFixed(1)}MB)
-                    <span class="file-remove" data-file="${file.name}">&times;</span>
-                </div>
-            `;
-            fileList.appendChild(listItem);
-
-            // custom remove button for each item
-            const removeButton = listItem.querySelector('.file-remove');
-            removeButton.addEventListener('click', (e) => {
-                const fileName = e.target.getAttribute('data-file');
-                const fileToRemove = fileList.querySelector(`[data-file="${fileName}"]`);
-                console.log("File removed: " + fileName)
-                fileToRemove.remove();
-                // remove item from virtual list
-                files = files.filter(file => file.name !== fileName);
-                fileInfoText.textContent = files.length + " File(s) selected";
-                console.log(files);
-            });
-        }
-    }
-    fileInfoText.textContent = files.length + " File(s) selected";
 }
 
 
