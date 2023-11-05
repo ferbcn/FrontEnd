@@ -73,6 +73,11 @@ document.getElementById("alert-box").addEventListener("click", function () {
     alertBox.style.display='none';
 });
 
+// Process Button
+document.getElementById("uploadButton").addEventListener("click", function () {
+    displayAlert("Processing files!");
+});
+
 
 // Handles dropped or selected files
 function handleDroppedOrSelectedFiles(newFiles){
