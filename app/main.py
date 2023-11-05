@@ -25,16 +25,6 @@ def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/fire", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("fire.html", {"request": request})
-
-
-@app.get("/tail", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("tail.html", {"request": request})
-
-
 @app.get("/upload", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse("upload.html", {"request": request})
@@ -72,21 +62,6 @@ async def upload_file(files: List[UploadFile]):
     except Exception as e:
         print(e)
         return {"error": str(e)}
-
-
-@app.get("/upload_label", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("upload_label.html", {"request": request})
-
-
-@app.get("/upload_split", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("upload_split.html", {"request": request})
-
-
-@app.get("/uploader", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("uploader.html", {"request": request})
 
 
 # Websocket endpoint
